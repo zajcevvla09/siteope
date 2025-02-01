@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SolSure – AI-платформа страхования на Solana</title>
+  <!-- Шрифты Google (пример) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Сброс стилей */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      width: 100%;
+      background: #001f3f; /* Темно-синий цвет */
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+    }
+
+    /* Шапка сайта */
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+    }
+
+    .navbar-logo {
+      color: #FFD700; /* Золотистый */
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .navbar-nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+      transition: opacity 0.2s ease;
+    }
+
+    .navbar-nav a:hover {
+      opacity: 0.7;
+    }
+
+    /* Главный баннер (Hero Section) */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 6rem 1.5rem;
+      background: url('https://via.placeholder.com/1920x900?text=SolSure+Background') center/cover no-repeat;
+      color: #fff;
+      margin-top: 4rem; /* отступ, чтобы не перекрывало шапкой */
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.4;
+    }
+
+    .hero .btn-primary {
+      background-color: #FFD700;
+      color: #001f3f;
+      border: none;
+      padding: 0.9rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .hero .btn-primary:hover {
+      background-color: #E6C200;
+    }
+
+    /* Раздел: "Ключевые функции" */
+    .features {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      color: #001f3f;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: #FFD700;
+      margin: 0.5rem auto 0;
+      border-radius: 2px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .feature {
+      background: #fff;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-3px);
+    }
+
+    .feature h3 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: #001f3f;
+    }
+
+    .feature p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #444;
+    }
+
+    /* Раздел: "Технологический стек" */
+    .tech-stack {
+      background-color: #001f3f;
+      color: #fff;
+      padding: 3rem 1.5rem;
+    }
+
+    .tech-stack-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tech-stack-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-evenly;
+      margin-top: 2rem;
+    }
+
+    .tech-stack-item {
+      background: #0A2A4F;
+      border-radius: 8px;
+      padding: 1.5rem;
+      flex: 1 1 200px;
+      min-width: 200px;
+      max-width: 300px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .tech-stack-item h4 {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    /* Раздел: "Почему SolSure лучше?" */
+    .advantages {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .advantages-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .advantages-item {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .advantages-item span {
+      color: #FFD700;
+      font-size: 1.5rem;
+      margin-right: 1rem;
+    }
+
+    .advantages-item p {
+      font-size: 1rem;
+      color: #333;
+    }
+
+    /* Раздел: "Кого страхуем?" */
+    .who-insured {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+
+    .insured-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .insured-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .insured-card img {
+      width: 60px;
+      margin-bottom: 1rem;
+    }
+
+    .insured-card h4 {
+      margin-bottom: 0.5rem;
+      color: #001f3f;
+    }
+
+    /* CTA секция */
+    .cta-section {
+      background: #FFD700;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      color: #001f3f;
+    }
+
+    .cta-section h2 {
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+
+    .cta-section p {
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .cta-section .btn-dark {
+      background-color: #001f3f;
+      color: #FFD700;
+      border: none;
+      padding: 0.9rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .cta-section .btn-dark:hover {
+      opacity: 0.8;
+    }
+
+    /* Футер */
+    footer {
+      background: #0A2A4F;
+      color: #fff;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    footer p {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .tech-stack-list {
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Шапка сайта -->
+  <header>
+    <div class="navbar">
+      <a href="#" class="navbar-logo">SolSure</a>
+      <nav class="navbar-nav">
+        <a href="#features">Функции</a>
+        <a href="#tech-stack">Технологии</a>
+        <a href="#advantages">Преимущества</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Главный баннер -->
+  <section class="hero">
+    <h1>SolSure</h1>
+    <p>AI-платформа на базе Solana для автоматизации страхования в США. Смарт-контракты, NFT, персонализированные полисы, прозрачность и мгновенные выплаты.</p>
+    <button class="btn-primary">Получить полис</button>
+  </section>
+
+  <!-- Ключевые функции -->
+  <section id="features" class="features">
+    <h2 class="section-title">Ключевые функции SolSure</h2>
+    <div class="features-grid">
+      <div class="feature">
+        <h3>1. Персонализированный подбор страховки</h3>
+        <p>AI анализирует финансовые и медицинские данные клиента, предлагает оптимальный полис. Интеграция с банками, медучреждениями и страховыми компаниями.</p>
+      </div>
+      <div class="feature">
+        <h3>2. Полисы через NFT</h3>
+        <p>Каждый страховой контракт – уникальный NFT на блокчейне Solana, который можно передавать, продавать или использовать в DeFi-экосистеме.</p>
+      </div>
+      <div class="feature">
+        <h3>3. Смарт-контракты Solana</h3>
+        <p>Мгновенные и прозрачные выплаты без бумажной волокиты. Смарт-контракты исключают задержки и повышают доверие пользователей.</p>
+      </div>
+      <div class="feature">
+        <h3>4. AI-модель оценки рисков</h3>
+        <p>Dynamic Pricing – динамическая подстройка стоимости страховки под ваш текущий уровень риска. Машинное обучение учитывает все факторы.</p>
+      </div>
+      <div class="feature">
+        <h3>5. Страхование Web3 и криптоактивов</h3>
+        <p>Защита DeFi-пользователей от хаков и потерь ликвидности. Возможность стейкинга страховых премий в децентрализованном пуле выплат.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Технологический стек -->
+  <section id="tech-stack" class="tech-stack">
+    <div class="tech-stack-container">
+      <h2 class="section-title" style="color:#FFD700;">Технологический стек</h2>
+      <div class="tech-stack-list">
+        <div class="tech-stack-item">
+          <h4>Solana (Rust, Anchor)</h4>
+          <p>Быстрые и дешевые транзакции, поддержка NFT и смарт-контрактов.</p>
+        </div>
+        <div class="tech-stack-item">
+          <h4>Python (TensorFlow, scikit-learn)</h4>
+          <p>AI-модель для оценки рисков и обработки больших массивов данных.</p>
+        </div>
+        <div class="tech-stack-item">
+          <h4>Chainlink / Pyth</h4>
+          <p>Оракулы для получения актуальных данных по рынку и внешним событиям.</p>
+        </div>
+        <div class="tech-stack-item">
+          <h4>React + TypeScript</h4>
+          <p>Современный фронтенд для удобного UI и мгновенного отклика.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Почему SolSure лучше? -->
+  <section id="advantages" class="advantages">
+    <h2 class="section-title">Почему SolSure лучше классических страховок?</h2>
+    <div class="advantages-list">
+      <div class="advantages-item">
+        <span>✅</span>
+        <p>Полная прозрачность — история полисов на блокчейне.</p>
+      </div>
+      <div class="advantages-item">
+        <span>✅</span>
+        <p>Моментальные выплаты — смарт-контракты без задержек.</p>
+      </div>
+      <div class="advantages-item">
+        <span>✅</span>
+        <p>Низкие комиссии — Solana обеспечивает быстрые и дешевые транзакции.</p>
+      </div>
+      <div class="advantages-item">
+        <span>✅</span>
+        <p>Персонализированные предложения — AI-агент подбирает лучшие условия.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Кого страхуем? -->
+  <section class="who-insured">
+    <div class="insured-card">
+      <img src="https://via.placeholder.com/60?text=Home" alt="Home icon">
+      <h4>Владельцы недвижимости</h4>
+      <p>Защита от ущерба имущества, стихийных бедствий и других рисков.</p>
+    </div>
+    <div class="insured-card">
+      <img src="https://via.placeholder.com/60?text=Car" alt="Car icon">
+      <h4>Автовладельцы</h4>
+      <p>Полисы ОСАГО, КАСКО, страхование ответственности с учётом AI-регулирования тарифов.</p>
+    </div>
+    <div class="insured-card">
+      <img src="https://via.placeholder.com/60?text=DeFi" alt="DeFi icon">
+      <h4>DeFi-инвесторы</h4>
+      <p>Страхование криптоактивов от хаков, флеш-крэшей и смарт-контрактных уязвимостей.</p>
+    </div>
+    <div class="insured-card">
+      <img src="https://via.placeholder.com/60?text=Med" alt="Medical icon">
+      <h4>Медицинское страхование</h4>
+      <p>Полисы для покрытия лечения, операций и регулярных медицинских расходов.</p>
+    </div>
+  </section>
+
+  <!-- CTA: Призыв к действию -->
+  <section class="cta-section">
+    <h2>Готовы перейти к будущему страхования?</h2>
+    <p>Оставьте заявку и получите персонализированный страховой полис SolSure на базе блокчейна Solana с максимальной прозрачностью и выгодными условиями.</p>
+    <button class="btn-dark">Оставить заявку</button>
+  </section>
+
+  <!-- Футер -->
+  <footer id="contacts">
+    <p>© 2025 SolSure. Все права защищены. <br>
+       SolSure не является юридической страховой компанией, а предлагает технологическую платформу для взаимодействия между страховщиком и застрахованными.
+    </p>
+  </footer>
+</body>
+</html>
